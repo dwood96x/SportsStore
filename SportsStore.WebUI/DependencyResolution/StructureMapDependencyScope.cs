@@ -46,7 +46,6 @@ namespace SportsStore.WebUI.DependencyResolution {
                 throw new ArgumentNullException("container");
             }
             Container = container;
-            AddBindings(container);
         }
         #endregion
         private void AddBindings(IContainer container)
@@ -60,7 +59,6 @@ namespace SportsStore.WebUI.DependencyResolution {
             });
             container.Inject<IProductsRepository>(mock.Object);
         }
-
         #region Public Properties
 
         public IContainer Container { get; set; }
