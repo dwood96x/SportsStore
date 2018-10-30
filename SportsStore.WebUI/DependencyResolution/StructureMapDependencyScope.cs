@@ -18,12 +18,14 @@
 namespace SportsStore.WebUI.DependencyResolution {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
     using System.Web;
 
     using Microsoft.Practices.ServiceLocation;
     using Moq;
     using SportsStore.Domain.Abstract;
+    using SportsStore.Domain.Concrete;
     using SportsStore.Domain.Entities;
     using StructureMap;
 	
@@ -58,6 +60,11 @@ namespace SportsStore.WebUI.DependencyResolution {
                 new Product { Name = "Running shoes", Price = 95},
             });
             container.Inject<IProductsRepository>(mock.Object);
+            EmailSettings emailSettings = new EmailSettings
+            {
+                WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
+            };
+            container.Inject<EmailSettings>(emailSettings);
         }
         #region Public Properties
 
